@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TipNick – Cüzdan Bağla</title>
+  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
+  <style>
+    body { font-family: system-ui; text-align: center; padding: 60px 20px; background: #000; color: white; }
+    h1 { font-size: 24px; margin-bottom: 10px; }
+    p { opacity: 0.8; }
+    #status { margin-top: 30px; font-size: 18px; }
+  </style>
+</head>
+<body>
+  <h1>TipNick Bot</h1>
+  <p>Sadece @nick yazarak para gönder/al</p>
+  <div id="connectButton"></div>
+  <div id="status"></div>
+
+  <script>
+    const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+      manifestUrl: 'https://tipnick-ton-connectx.vercel.app/tonconnect-manifest.json',
+      buttonRootId: 'connectButton'
+    });
+
+    tonConnectUI.onStatusChange(wallet => {
+      const status = document.getElementById('status');
+      if (wallet) {
+        status.innerHTML = `✅ Bağlandı!<br>\( {wallet.account.address.slice(0,6)}... \){wallet.account.address.slice(-4)}`;
+      } else {
+        status.innerHTML = '❌ Bağlantı kesildi';
+      }
+    });
+  </script>
+</body>
+</html> 
